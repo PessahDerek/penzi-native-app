@@ -1,5 +1,6 @@
 package com.example.penziapp.network
 
+import androidx.compose.ui.platform.LocalContext
 import com.example.penziapp.AppPreferences
 import okhttp3.Interceptor
 import okhttp3.Request

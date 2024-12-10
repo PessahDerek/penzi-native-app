@@ -12,7 +12,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 
 private const val BASE_URL =
-    "https://xv7rwt21-5000.asse.devtunnels.ms/admin/"
+    "https://9pz93gd2-5000.euw.devtunnels.ms/admin/"
 
 val client = OkHttpClient.Builder()
     .addInterceptor(AuthInterceptor())
@@ -40,40 +40,62 @@ enum class MsgType {
     Incoming, Outgoing
 }
 
-interface MessageObj {
-    val id: Int
-    val user_id: Int
-    val phone: String
-    val message: String
-    val msg_type: MsgType
+data class MessageObj (
+    @SerializedName("id")
+    val id: Int,
+    @SerializedName("user_id")
+    val user_id: Int,
+    @SerializedName("phone")
+    val phone: String,
+    @SerializedName("message")
+    val message: String,
+    @SerializedName("msg_type")
+    val msg_type: String,
+    @SerializedName("created_at")
     val created_at: String
-}
+)
 
 enum class GenderObj {
     FEMALE, MALE
 }
 
-@Serializable
+//@Serializable
 data class DetailsObj(
+    @SerializedName("id")
     val id: Int,
+    @SerializedName("description")
     val description: String,
+    @SerializedName("education")
     val education: String,
+    @SerializedName("profession")
     val profession: String,
+    @SerializedName("maritalStatus")
     val maritalStatus: String,
+    @SerializedName("religion")
     val religion: String,
+    @SerializedName("ethnicity")
     val ethnicity: String,
+    @SerializedName("userId")
     val userId: Int
 )
 
-@Serializable
+//@Serializable
 data class PersonObj(
+    @SerializedName("id")
     val id: Int,
+    @SerializedName("name")
     val name: String,
+    @SerializedName("phone")
     val phone: String,
+    @SerializedName("age")
     val age: Int,
-    val gender: GenderObj,
+    @SerializedName("gender")
+    val gender: String,
+    @SerializedName("county")
     val county: String,
+    @SerializedName("town")
     val town: String,
+    @SerializedName("details")
     val details: DetailsObj? = null // Optional field with nullable type
 )
 
@@ -90,10 +112,10 @@ interface PenziApiService {
     suspend fun login(@Body loginValues: LoginValuesObj): LoginRespBodyObj
 
     @GET("users")
-    suspend fun fetchUsers(): Response<List<PersonObj>>
+    suspend fun fetchUsers(): Collection<PersonObj>
 
     @GET("messages")
-    suspend fun fetchMessages(): List<MessageObj>
+    suspend fun fetchMessages(): Collection<MessageObj>
 }
 
 object PenziApi {

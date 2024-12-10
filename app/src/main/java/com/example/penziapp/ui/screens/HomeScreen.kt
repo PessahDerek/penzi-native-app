@@ -53,11 +53,12 @@ fun HomeScreen(
             nav.navigate("login")
         } else {
             viewModel.getAllDashMessages()
+            viewModel.getAllPeople()
         }
     }
 
     val selected = remember { mutableIntStateOf(0) }
-
+    val allMessages = remember { viewModel.allMessages }
 
     Surface(modifier = modifier.fillMaxSize()) {
         Column {
@@ -107,8 +108,8 @@ fun HomeScreen(
                     )
                 }
                 when (selected.intValue) {
-                    0 -> AllUsersList(listData = ArrayList())
-                    1 -> AllMessagesList(listData = ArrayList())
+                    0 -> AllUsersList(listData = viewModel.allUsers.value)
+                    1 -> AllMessagesList(listData = viewModel.allMessages.value)
                 }
             }
         }

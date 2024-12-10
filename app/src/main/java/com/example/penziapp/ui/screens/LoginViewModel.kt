@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
+import com.example.penziapp.AppPreferences
 import com.example.penziapp.data.SharedPref
 import com.example.penziapp.network.LoginValuesObj
 import com.example.penziapp.network.PenziApi
@@ -31,6 +32,7 @@ class LoginViewModel : ViewModel() {
                     sharedPref.saveUsername(response.username)
                     Log.d("Token", response.token)
                     Log.d("Okay", response.toString())
+                    AppPreferences.token = response.token
                     nav.navigate("home")
                 } catch (e: Exception) {
                     when (e) {
